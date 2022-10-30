@@ -20,95 +20,137 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        groupNgoaiTe = findViewById(R.id.groupNgoaiTe);
         edtVND = findViewById(R.id.edtVND);
         edtNgoaiTe = findViewById(R.id.edtNgoaiTe);
         btnVNDTo = findViewById(R.id.btnVNDTo);
-//        btnVNDTo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        btnVNDTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // cach 1
+                double VND = Integer.parseInt(edtVND.getText().toString());
+                double NgoaiTe = 0;
+                int idRadioSelect = groupNgoaiTe.getCheckedRadioButtonId();
+                switch (idRadioSelect) {
+                    case 0: {
+                        NgoaiTe = VND/22280;
+                        edtNgoaiTe.setText(NgoaiTe+"");
+                        break;
+                    }
+                    case 1: {
+                        NgoaiTe = VND/24280;
+                        edtNgoaiTe.setText(NgoaiTe+"");
+                        break;
+                    }
+                    case 2: {
+                        NgoaiTe = VND/204;
+                        edtNgoaiTe.setText(NgoaiTe+"");
+                        break;
+                    }
+                }
+
+//                cach 2
 //                doChangeVNDTo();
-//            }
-//        });
+            }
+        });
         btnNgoaiTeTo = findViewById(R.id.btnNgoaiTeTo);
-//        btnNgoaiTeTo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        btnNgoaiTeTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // cach 1
+                double VND = 0;
+                double NgoaiTe = Integer.parseInt(edtNgoaiTe.getText().toString());
+                int idRadioSelect = groupNgoaiTe.getCheckedRadioButtonId();
+                switch (idRadioSelect) {
+                    case 0: {
+                        VND = NgoaiTe*22280;
+                        edtVND.setText(VND+"");
+                        break;
+                    }
+                    case 1: {
+                        VND = NgoaiTe*24280;
+                        edtVND.setText(VND+"");
+                        break;
+                    }
+                    case 2: {
+                        VND = NgoaiTe*204;
+                        edtVND.setText(VND+"");
+                        break;
+                    }
+                }
+
+                // cach 2
 //                doChangeNgoaiTeTo();
-//            }
-//        });
+            }
+        });
         btnClear = findViewById(R.id.btnClear);
-//        btnClear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                edtVND.setText("");
-//                edtNgoaiTe.setText("");
-//            }
-//        });
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtVND.setText("");
+                edtNgoaiTe.setText("");
+            }
+        });
     }
-    // ham lay radio button
-    public String getLoaiNgoaiTe() {
-        // lay value tu group radio
-        String loaiNgoaiTe = "";
-        int idRadioSelect = groupNgoaiTe.getCheckedRadioButtonId(); // lay id cua radio dc chon
-        RadioButton radioSelected = findViewById(idRadioSelect); // khai bao va anh xa id den voi doi tuong dc  chon
-        loaiNgoaiTe = radioSelected.getText().toString();
-
-        // tra ve loai ngoai te
-        return loaiNgoaiTe;
-    }
-
-    // lay gia tri edt
-    double VND = Integer.parseInt(edtVND.getText().toString());
-    double NgoaiTe = Integer.parseInt(edtNgoaiTe.getText().toString());
 
     // chuyen tu VND sang ngoai te
     public  void doChangeVNDTo() {
+        double VND = Integer.parseInt(edtVND.getText().toString());
+        double NgoaiTe = 0;
+
+        // lay id cua radio
+        int idRadioSelect = groupNgoaiTe.getCheckedRadioButtonId(); // lay id cua radio dc chon
+
         if(VND == 0) {
             Toast.makeText(this, "Ban chua nhap so", Toast.LENGTH_SHORT).show();
         }
         else {
-            if(getLoaiNgoaiTe() == "") {
-                Toast.makeText(this, "Ban chua chon ngoai te", Toast.LENGTH_SHORT).show();
+            if(idRadioSelect == 0 ) {
+                NgoaiTe = VND/22280;
+                edtNgoaiTe.setText(NgoaiTe+"");
+            }
+            if(idRadioSelect == 1 ) {
+                NgoaiTe = VND/24280;
+                edtNgoaiTe.setText(NgoaiTe+"");
+            }
+            if(idRadioSelect == 2 ) {
+                NgoaiTe = VND/204;
+                edtNgoaiTe.setText(NgoaiTe+"");
             }
             else {
-                if(getLoaiNgoaiTe() == "USD" ) {
-                    NgoaiTe = VND/22280;
-                    edtNgoaiTe.setText(NgoaiTe+"");
-                }
-                if(getLoaiNgoaiTe() == "EUR" ) {
-                    NgoaiTe = VND/24280;
-                    edtNgoaiTe.setText(NgoaiTe+"");
-                }
-                if(getLoaiNgoaiTe() == "JPY" ) {
-                    NgoaiTe = VND/204;
-                    edtNgoaiTe.setText(NgoaiTe+"");
-                }
+                Toast.makeText(this, "Ban chua chon ngoai te", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     // chuyen tu ngoai te sang VND
     public  void doChangeNgoaiTeTo() {
+        double VND = 0;
+        double NgoaiTe = Integer.parseInt(edtNgoaiTe.getText().toString());
+
+        // lay id cua radio
+        int idRadioSelect = groupNgoaiTe.getCheckedRadioButtonId(); // lay id cua radio dc chon
+
         if(NgoaiTe == 0) {
             Toast.makeText(this, "Ban chua nhap so", Toast.LENGTH_SHORT).show();
         }
         else {
-            if(getLoaiNgoaiTe() == "") {
-                Toast.makeText(this, "Ban chua chon ngoai te", Toast.LENGTH_SHORT).show();
+            if(idRadioSelect == 0 ) {
+                VND = NgoaiTe*22280;
+                edtVND.setText(VND+"");
+            }
+            if(idRadioSelect == 1 ) {
+                VND = NgoaiTe*24280;
+                edtVND.setText(VND+"");
+            }
+            if(idRadioSelect == 2 ) {
+                VND = NgoaiTe*204;
+                edtVND.setText(VND+"");
             }
             else {
-                if(getLoaiNgoaiTe() == "USD" ) {
-                    VND = NgoaiTe*22280;
-                    edtVND.setText(VND+"");
-                }
-                if(getLoaiNgoaiTe() == "EUR" ) {
-                    VND = NgoaiTe*24280;
-                    edtVND.setText(VND+"");
-                }
-                if(getLoaiNgoaiTe() == "JPY" ) {
-                    VND = NgoaiTe*204;
-                    edtVND.setText(VND+"");
-                }
+                Toast.makeText(this, "Ban chua chon ngoai te", Toast.LENGTH_SHORT).show();
             }
         }
     }

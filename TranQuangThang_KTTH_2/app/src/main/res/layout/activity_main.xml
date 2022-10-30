@@ -31,19 +31,16 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-            android:id="@+id/radioUSD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="USD" />
 
         <RadioButton
-            android:id="@+id/radioEUR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="EUR" />
 
         <RadioButton
-            android:id="@+id/radioJPY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="JPY" />
